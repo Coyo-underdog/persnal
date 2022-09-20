@@ -1,57 +1,96 @@
 #include<stdio.h>
 #include<string.h>
+#include<stdlib.h>
 
-int scan(){
-	int n,k;
-	scanf("%d%d", &n, &k);
-	int c[n];
-	int order[n];
-	int arr[n][n];
-	int check[n];
-	int column = 0;
-	memset(arr, 0, sizeof(int));
-	memset(order, 0, sizeof(int));
-	for(int i = 0; i < n; i++) scanf("%d", c+i);
-	int a[k], b[k];
-	int j = 0;
-	for(int id = 0; id < k; id++){
-		scanf("%d%d", &a[id], &b[id]);
-		a[id]--;
-		b[id]--;
-		arr[a[id]][b[id]]=1;
-	}
-}
-int sort(int start){
-	int check = 0;
-	for(column = start; column < n; column++){
-		int sum = 0;
+int scan(int n, int k){
 
-		for(int row = 0; row < n; row++){
-			sum += arr[row][column];
-		}
-		if(sum == 0){
-		order[j] = column+1;
-		j++;
-		for(int l = 0; l < n; l++)
-			arr[column][l] = 0;
-		}
-		else {
-		if(check == 0){
-		check = column;
-		return check;
-		}
-		}
-		
+	int* c = (int*)malloc(n*sizeof(int*));
+	memset(c, 0, sizeof(c));
+	for(int i = 0; i < n; i++)
+		scanf("%d", &c[i]);
+	int** arr = (int**)malloc(n*sizeof(int*));
+	for(int i = 0; i < n; i++)
+		arr[i] = (int*)malloc(n*sizeof(int));
+	for(int i = 0; i < n; i++)
+		memset(arr[i], 0, sizeof(arr[i]));
+
+	int* a = (int*)malloc(n*sizeof(int*));
+	memset(a, 0, sizeof(a));
+
+	int* b = (int*)malloc(n*sizeof(int*));
+	memset(b, 0, sizeof(b));
 	
+	for(int i = 0; i < k; i++){
+		scanf("%d %d", &a[i], &b[i]);
+		a[i]--;
+		b[i]--;
+		arr[a[i]][b[i]] = 1;
 	}
- 
-}
+	free(a);
+	free(b);
+	return 0;
+	}
 
-		
+
 	
+int sort(int n,int k,int time)
+{
+	int j = 0, l = n, temp;
+	int* no = (int*)malloc(n*sizeof(int));
+	memset(no, 0, sizeof(no));
+	int* s= (int*)malloc(n*sizeof(int));
+	memset(s, 0, sizeof(s));
 
-}
-	int main(){
-		scan();
-		return 0;
+	for(int i = 0; i < n; i++)
+		no[i] = i;
+	while(l != 0){
+	temp = l;
+	l = 0;
+	for(int i = 0; i < temp; i++){
+		int sum =0;
+		for(int r = 0; r < n; r++)
+			sum += arr[r][no[i]];
+		
+		 if(sum == 0){
+                s[j] = no[i];
+                j++;
+                }
+                else{
+                no[l] = no[i];
+                l++
+                }
+
 	}
+	for(int r = 0; r < j; r++){
+                for(int e = 0; e < n; e++)
+                	arr[s[r]][e] = 0;
+	}
+	
+	int min = c[s[0]];
+        for(int d = 0; d < j; d++){
+                if(c[s[d]] < min)
+                        min = c[s[d]];
+        }
+	time += min;
+	for(int i = 0; i < j; i++)
+		s[i] = 0;
+	j = 0;
+	}
+return time;
+}
+
+int main(){
+	int n, k, time = 0;
+
+	scanf("%d %d", &n, &k);
+	scan(n, k);
+	int result = sort(n, k, time);
+	free(c);
+	for(int i = 0; i < n; i++);
+	free(arr[i]);
+	free(arr);
+	free(no);
+	free(s);
+	printf("%d\n", result);
+}
+	
