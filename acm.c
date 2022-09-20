@@ -2,7 +2,7 @@
 #include<string.h>
 #include<stdlib.h>
 
-int scan(int n, int k){
+int sort(int n, int k,int time){
 
 	int* c = (int*)malloc(n*sizeof(int*));
 	memset(c, 0, sizeof(c));
@@ -28,13 +28,7 @@ int scan(int n, int k){
 	}
 	free(a);
 	free(b);
-	return 0;
-	}
 
-
-	
-int sort(int n,int k,int time)
-{
 	int j = 0, l = n, temp;
 	int* no = (int*)malloc(n*sizeof(int));
 	memset(no, 0, sizeof(no));
@@ -57,7 +51,7 @@ int sort(int n,int k,int time)
                 }
                 else{
                 no[l] = no[i];
-                l++
+                l++;
                 }
 
 	}
@@ -77,20 +71,23 @@ int sort(int n,int k,int time)
 	j = 0;
 	}
 return time;
+free(c);
+int y = 0;
+	for(y = 0; y < n; y++);
+		free(arr[y]);
+
+free(arr);
+free(no);
+free(s);
+free(s);
 }
 
 int main(){
 	int n, k, time = 0;
 
 	scanf("%d %d", &n, &k);
-	scan(n, k);
 	int result = sort(n, k, time);
-	free(c);
 	for(int i = 0; i < n; i++);
-	free(arr[i]);
-	free(arr);
-	free(no);
-	free(s);
 	printf("%d\n", result);
 }
 	
